@@ -75,3 +75,30 @@ clean:
 	rm -rf $(VENV)
 	rm -rf .mypy_cache .ruff_cache .pytest_cache __pycache__
 	find . -type d -name __pycache__ -exec rm -rf {} +
+
+
+
+# ==============================================================================
+# Product Service Targets
+# ==============================================================================
+
+# Переменная окружения с дефолтным значением 8001. 
+# Может быть переопределена при вызове: make run-product PRODUCT_PORT=8080
+PRODUCT_PORT ?= 8001
+PRODUCT_DIR = product-service
+
+.PHONY: run-product install-product product-venv
+
+# Установка зависимостей через Poetry (аналог make venv из прошлого задания)
+install-product:
+	@echo "==> Установка зависимостей Product Service через Poetry..."
+	cd $(PRODUCT_DIR) && poetry install --no-root
+
+# Запуск Product Service с динамическим портом
+run-product: install-product
+	@echo "==> Запуск Product Service на порту $(PRODUCT_PORT)..."
+	@echo "==> Order Service должен быть настроен на PRODUCT_SERVICE_URL=http://localhost:$(PRODUCT_PORT)"
+	cd $(PRODUCT_DIR) && poetry run uvicorn product_service.main:app --host 0.0.0.0 --port $(PRODUCT_PORT)
+
+# Пример: как Order Service может использовать эту переменную (для документации)
+# export PRODUCT_SERVICE_URL=http://localhost:$(PRODUCT_PORT)
