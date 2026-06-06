@@ -1,0 +1,32 @@
+[project]
+name = "product-service"
+version = "0.1.0"
+description = "Application"
+authors = [
+    {name = "Denis"}
+]
+license = "MIT"
+requires-python = "^3.14"
+dependencies = [
+    "fastapi (>=0.136.1,<0.137.0)",
+    "uvicorn[standard] (>=0.46.0,<0.47.0)",
+    "httpx (>=0.28.1,<0.29.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"] # E: pycodestyle, F: pyflakes, I: isort

@@ -1,0 +1,9 @@
+# Основные зависимости
+requests==2.31.0
+numpy==1.26.4
+fastapi==0.110.0
+
+# Инструменты разработки (Dev dependencies)
+mypy==1.9.0
+ruff==0.3.4
+deptry==0.16.1
